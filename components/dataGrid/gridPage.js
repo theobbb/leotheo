@@ -1,4 +1,5 @@
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { withStyles } from "@material-ui/core";
+import { Box, Button, styled, useMediaQuery, useTheme } from "@mui/material";
 import { DataGrid, GridRow, useGridApiRef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import GridPageLayout from "./gridPageLayout";
@@ -90,6 +91,10 @@ export default function GridPage(props) {
       setDensity,
   };
 
+  const theme = useTheme();
+
+  console.log(theme);
+
   function handleSortModelChange() {
     setSortedRows(apiRef.current.getSortedRows())
   }
@@ -117,12 +122,23 @@ export default function GridPage(props) {
       </GridPageLayout>
     )
 }
+const buttonStyle = (theme) => ({
+  root: theme.mixins.button,
+});
+/*
+const ButtonRow = styled(buttonStyle)(({ classes, selectedRow, handleClick, ...other }) => (
+  <div className={classes.root} onClick={() => handleClick(other.row)} role="button">
+    <GridRow {...other} />
+  </div>
+));*/
 
 function ButtonRow ({selectedRow, handleClick, ...other}) {
   return (
+
     <Button variant='grid-row' className={other.row.id == selectedRow?.id? 'grid-row-selected' : null} onClick={() => handleClick(other.row)} >
         <GridRow {...other} />
     </Button>
+    
   )
 }
 

@@ -1,5 +1,6 @@
+import Layout from "@layouts/main";
 import { Toolbar, Typography } from "@mui/material";
-import Layout from "../../components/layout";
+
 
 export default function Customers() {
     return (

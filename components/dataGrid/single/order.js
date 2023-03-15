@@ -13,7 +13,7 @@ export default function SingleOrder(props) {
   const data = useContext(DataContext);
 
   const order = data.ecommerce.orders.find(order => order.id === selectedRow.id);
-//console.log(selectedRow);
+
   const customer = data.ecommerce.customers.find(customer => customer.id === order.customerID);
 
   const theme = useTheme();

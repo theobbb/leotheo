@@ -1,49 +1,19 @@
 
 import Layout from "@layouts/main";
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
-// material-ui
-import {
-    Avatar,
-    AvatarGroup,
-    Box,
-    Button,
-    Grid,
-    List,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemSecondaryAction,
-    ListItemText,
-    MenuItem,
-    Stack,
-    TextField,
-    ToggleButton,
-    ToggleButtonGroup,
-    Toolbar,
-    Typography
-} from '@mui/material';
+import { Box, Button, Grid, Stack, Toolbar, Typography } from '@mui/material';
 
-import OrderTable from '../components/OrderTable';
-// project import
 
-import TrafficChart from '../components/TrafficChart';
-import MonthlyBarChart from '../components/MonthlyBarChart';
-import ReportAreaChart from '../components/ReportAreaChart';
-import SalesColumnChart from '../components/SalesColumnChart';
-import MainCard from '../components/MainCard';
-import AnalyticEcommerce from '../components/statistics/AnalyticEcommerce';
+import TrafficChart from '@components/TrafficChart';
+import MonthlyBarChart from '@components/MonthlyBarChart';
+import MainCard from '@components/MainCard';
 import { useTheme } from '@mui/material/styles';
-import RecentOrders from "../components/recentOrders";
-import ChartCard from "../components/cards/chart";
-import { seriesChart0, seriesChart1, seriesChart2 } from "../config";
+import RecentOrders from "@components/recentOrders";
+import ChartCard from "@components/cards/chart";
+import { DataContext } from "@utils/dataContext";
 
-// assets
-/*import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
-import avatar1 from 'assets/images/users/avatar-1.png';
-import avatar2 from 'assets/images/users/avatar-2.png';
-import avatar3 from 'assets/images/users/avatar-3.png';
-import avatar4 from 'assets/images/users/avatar-4.png';*/
 
 // avatar style
 const avatarSX = {
@@ -52,39 +22,14 @@ const avatarSX = {
     fontSize: '1rem'
 };
 
-// action style
-const actionSX = {
-    mt: 0.75,
-    ml: 1,
-    top: 'auto',
-    right: 'auto',
-    alignSelf: 'flex-start',
-    transform: 'none'
-};
-
-// sales report status
-const status = [
-    {
-        value: 'today',
-        label: 'Today'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'year',
-        label: 'This Year'
-    }
-];
-
-// ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 export default function Dashboard () {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
 
     const theme = useTheme();
+
+    const data = useContext(DataContext);
 
     return (
         <Layout>
@@ -116,18 +61,18 @@ export default function Dashboard () {
 
             <Grid item xs={12} sm={6} md={4} lg={3}></Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
+                <ChartCard color={'#388e3c'} series={[{data: data.analytics.products[1000], name: 'page views'}]} text="Sales" />
                 
-                <ChartCard series={seriesChart0} text="page views" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                
-                    <ChartCard series={seriesChart1} text="sessions" />
+                <ChartCard color={'#388e3c'} series={[{data: data.analytics.products[1000], name: 'sessions'}]} text="Sales" />
+                    
                     
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
                 
+                <ChartCard color={'#388e3c'} series={[{data: data.analytics.products[1000], name: 'sales'}]} text="Sales" />
                     
-                    <ChartCard series={seriesChart2} text="sales" />
                     
             </Grid>
 
