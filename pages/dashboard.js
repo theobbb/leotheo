@@ -10,17 +10,10 @@ import TrafficChart from '@components/TrafficChart';
 import MonthlyBarChart from '@components/MonthlyBarChart';
 import MainCard from '@components/MainCard';
 import { useTheme } from '@mui/material/styles';
-import RecentOrders from "@components/recentOrders";
-import ChartCard from "@components/cards/chart";
+import RecentOrders from "@components/RecentOrders";
+import ChartCard from "@components/Cards/chart";
 import { DataContext } from "@utils/dataContext";
 
-
-// avatar style
-const avatarSX = {
-    width: 36,
-    height: 36,
-    fontSize: '1rem'
-};
 
 
 export default function Dashboard () {
