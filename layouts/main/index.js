@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Head from 'next/head';
+
 import { styled, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/system';
 
@@ -14,6 +14,7 @@ import MainDrawer from './drawer';
 
 //import { drawerWidth } from 'config';
 import ProfileDrawer from './drawerProfile';
+import { Main } from 'next/document';
 
 
 export default function Layout ({ children }) {
@@ -33,11 +34,7 @@ export default function Layout ({ children }) {
     return (
       <div>
 
-      <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
 
-      </Head>
       <Box sx={{ display: 'flex', width: '100%' }}>
           <CssBaseline />
           <Header handleDrawerToggle={handleDrawerToggle} openProfile={openProfile} handleDrawerProfileToggle={handleDrawerProfileToggle} />
@@ -52,9 +49,13 @@ export default function Layout ({ children }) {
 
               <ProfileDrawer handleDrawerToggle={handleDrawerProfileToggle} open={openProfile} />
 
-              <Main open={openProfile}>
+              <Box sx={{ maxWidth: "100%", mx: "auto" }}>
+                {children}
+              </Box>
+              
+              {/*<Main open={openProfile}>
                   {children}
-              </Main>
+              </Main>*/}
               
           </Box>
       </Box>
@@ -93,7 +94,7 @@ export default function Layout ({ children }) {
         </div>
     );*/
 };
-
+/*
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       flexGrow: 1,
@@ -111,4 +112,4 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         
       }),
     }),
-  );
+  );*/

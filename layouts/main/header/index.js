@@ -22,7 +22,6 @@ export default function Header({ open, handleDrawerToggle, openProfile, handleDr
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 */
-  const { data: session } = useSession()
 
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
@@ -65,7 +64,7 @@ export default function Header({ open, handleDrawerToggle, openProfile, handleDr
       color: 'inherit',
       elevation: 0,
       sx: {
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: (theme) => theme.zIndex.drawer - 1,
         backgroundColor: theme.palette.primary.main,
           borderBottom: `1px solid ${theme.palette.divider}`,
           width: matchDownMD? '100%' : `calc(100% - ${196}px)`,

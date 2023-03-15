@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { textIconStyle } from '@styles/global';
 import { useTheme } from "@mui/system";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
@@ -9,7 +9,7 @@ export default function Import(props) {
   return (
     <Button>
         <FileUploadIcon sx={textIconStyle(theme)} />
-        <span>IMPORT</span>
+        <Typography variant='button'>IMPORT</Typography>
     
     </Button>
   )

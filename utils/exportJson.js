@@ -26,7 +26,7 @@ const exportBlob = (blob, filename) => {
         URL.revokeObjectURL(url);
     });
 };
-export const exportJson = (rows, columns, filename) => {
+export const exportJson = ({rows, columns, filename}) => {
   const jsonString = getJson(rows, columns);
   const blob = new Blob([jsonString], {
     type: 'text/json',

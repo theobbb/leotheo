@@ -1,27 +1,40 @@
+import ProductImage from '@components/productImage';
 import StatusPastille from '@components/StatusPastille';
-import { Box, Button, Card, Divider, Grid, Modal, Stack, styled, Toolbar, Typography } from '@mui/material'
-import { tempData } from '@utils/tempData';
-import React from 'react'
-import SingleCard from './card';
+import { Box, Button, Card, Divider, Grid, Stack, styled, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { DataContext } from '@utils/dataContext';
 
+import React, { useContext } from 'react'
 
-export default function SingleOrder({row, setSelectedRow}) {
+export default function SingleOrder(props) {
 
-  
-  const order = tempData.ecommerce.orders.find(order => order.id === row.id);
+  const { rows, selectedRow, setSelectedRow } = props;
+  if (!selectedRow) return null;
 
-  const customer = tempData.ecommerce.customers.find(customer => customer.id === order.customerID);
+  const data = useContext(DataContext);
+
+  const order = data.ecommerce.orders.find(order => order.id === selectedRow.id);
+//console.log(selectedRow);
+  const customer = data.ecommerce.customers.find(customer => customer.id === order.customerID);
+
+  const theme = useTheme();
+
+  const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+  const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+  const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+
+  const rowSpacing = matchDownXL? 0.5:0.6;
+  const dividerSpacing = matchDownXL? 0.5:0.6;
 
   function Title(props) {
     return (
-      <Grid item xs={12} sm={6} md={7} lg={5}>
-        <Typography variant='p'>{props.children}</Typography>
+      <Grid item xs={12} sm={12} md={12} xl={5}>
+        <Typography variant='bold'>{props.children}</Typography>
       </Grid>
     )
   }
   function Value(props) {
     return (
-      <Grid item xs={12} sm={6} md={7} lg={7} >
+      <Grid item xs={12} sm={12} md={12} xl={7} >
         <Typography variant='p'>{props.children}</Typography>
       </Grid>
     )
@@ -30,49 +43,60 @@ export default function SingleOrder({row, setSelectedRow}) {
     return <Typography sx={{marginBottom: 1}} variant='h6'>{props.children}</Typography>
   }
 
-  return order && customer && (
+  function RowDivider () {
+    return <Grid item xs={12} sx={{my: dividerSpacing}}><Divider /></Grid>
+  }
 
-    <>
-    <Divider />
-    <Toolbar>
-      <Typography variant='h4'>{order.id}</Typography>
-    </Toolbar>
-    <Divider />
+  const SingleCard = ({children}) => (
+    <Card variant='main' sx={{py: dividerSpacing, px: 2, marginBottom: 5}}>
+      <Grid container rowSpacing={rowSpacing} columnSpacing={1} sx={{position: 'relative', marginTop: 0}}>
+          {children}
+          <Grid item xs={12}></Grid>
+      </Grid>
+    </Card>
+  )
+
+
+
+  return data && customer && order && (
+
+    
+
     <Box sx={{px:3, py: 3}} >
 
       <GridTitle>Details</GridTitle>
-      <Card variant='main' sx={{p: 1.5, px: 2, marginBottom: 5}}>
-          <Grid container rowSpacing={1.5} columnSpacing={1}>
+      <SingleCard>
+          
 
               <Title>Date</Title>
-              <Value >{`${row.date}`}</Value>
+              <Value >{`${selectedRow.date}`}</Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+              <RowDivider />
 
               <Title>Promotion Code</Title>
-              <Value></Value>
+              <Value>HIGH</Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+              <RowDivider />
 
               <Title>Total Amount</Title>
-              <Value>{row.total}</Value>
+              <Value>{selectedRow.total}</Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+              <RowDivider />
 
               <Title>Status</Title>
               <Value>
                 <StatusPastille value={order.status} />
               </Value>
-                
+              
               
               
             
-          </Grid>
-        </Card>
+          
+        </SingleCard>
 
         <GridTitle>Customer</GridTitle>
-        <Card variant='main' sx={{py: 1.5, px: 2, marginBottom: 5}}>
-          <Grid container rowSpacing={1.5} columnSpacing={1}>
+        <SingleCard>
+          
 
               <Title>Name</Title>
               <Value>
@@ -82,65 +106,67 @@ export default function SingleOrder({row, setSelectedRow}) {
               
               </Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+              <RowDivider />
 
               <Title>Email</Title>
-              <Value><Button variant='inline'>
+              <Value>
+                <Button variant='inline'>
                   {customer.email}
-                </Button></Value>
+                </Button>
+              </Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+                <RowDivider />
 
               <Title>Address</Title>
               <Value>{customer.location}</Value>
 
-              <Grid item xs={12}><Divider /></Grid>
+              <RowDivider />
 
               <Title>ID</Title>
               <Value>{customer.id}</Value>
             
-          </Grid>
-        </Card>
+        
+        </SingleCard>
       
         <GridTitle>Items</GridTitle>
+        <Card variant='main' sx={{py: rowSpacing+dividerSpacing, px: 2, marginBottom: 5}}>
+        {selectedRow.items.map((item, index) => (
+          <Grid key={item.id} item xs={12} >
 
-        {row.items.map((item, index) => (
+            <Grid container rowSpacing={rowSpacing+dividerSpacing} columnSpacing={1}>
 
-        <Card variant='main' sx={{py: 1.5, px: 2}}>
-          <Grid container rowSpacing={1.5} columnSpacing={1}>
+                <Grid item xs={6} xl={2} order={matchDownXL? index+2 : 0}>
+                  <Typography variant='p'>{`${item.quantity}g`}</Typography>
+                </Grid>
 
-              <Title>Name</Title>
-              <Value >{customer.name}</Value>
+                <Grid item xs={12} xl={7} order={matchDownXL? index+1 : 0}>
+                  
+                    <Stack direction='row' alignItems='center' spacing={2} >
+                      <ProductImage color={item.item.color} size={24} />
+                      <Button variant='inline'>
+                      <Typography variant='p'>{item.item.name}</Typography>
+                      </Button>
+                    </Stack>
+                  
+                </Grid>
 
-              <Grid item xs={12}><Divider /></Grid>
+                <Grid align='right' item xs={6} xl={3} order={matchDownXL? index+3 : 0}>
+                  <Typography variant='p'>{item.total}</Typography>
+                </Grid>
 
-              <Title>Email</Title>
-              <Value>{customer.email}</Value>
-
-              <Grid item xs={12}><Divider /></Grid>
-
-              <Title>Address</Title>
-              <Value>{customer.location}</Value>
-
-              <Grid item xs={12}><Divider /></Grid>
-
-              <Title>ID</Title>
-              <Value>{customer.id}</Value>
-            
+                {index != selectedRow.items.length - 1 && 
+                <Grid item xs={12} sx={{py: rowSpacing+dividerSpacing}} order={matchDownXL? index+4 : 0}>
+                  <Divider />
+                </Grid>
+                }
+              
+            </Grid>
           </Grid>
-        </Card>
+          
         ))}
-
+        </Card>
       
     </Box>
-</>
+
   )
 }
-/*
-<Typography variant='h4'>{customer.name}</Typography>
-<Typography variant='h4'>{customer.name}</Typography>
-<Typography variant='h4'>{customer.location}</Typography>
-<Typography variant='h4'>{customer.email}</Typography>
-
-<Typography variant='h4'>{customer.email}</Typography>
-<Typography variant='h4'>{customer.email}</Typography>*/

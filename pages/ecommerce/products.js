@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack, Toolbar, Typography } from "@mui/material";
+import { Box, Button, Divider, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import Layout from "@layouts/main";
 import PropTypes from 'prop-types';
 import {   DataGrid,
@@ -8,12 +8,14 @@ import {   DataGrid,
     useGridApiContext,
     gridFilteredSortedRowIdsSelector,
     gridVisibleColumnFieldsSelector, } from '@mui/x-data-grid';
-import { tempData } from "../../../utils/tempData";
-import StatusPastille, { statusText } from "../../../components/StatusPastille";
+import { tempData } from "@utils/tempData";
+import StatusPastille, { statusText } from "@components/StatusPastille";
 import MenuItem from '@mui/material/MenuItem';
-import PageGridLayout from "@components/dataGrid/pageGridLayout";
+import PageGridLayout from "@components/dataGrid/gridPageLayout";
 import { useState } from "react";
 import SingleProduct from "@components/dataGrid/single/product";
+import ProductImage from "@components/productImage";
+import GridPage from "@components/dataGrid/gridPage";
 
 
 
@@ -30,6 +32,7 @@ const columns = [
         field: 'category', 
         headerName: 'CATEGORY', 
         flex: 1, 
+        hide: 'lg',
         minWidth: 100, },
     { 
         field: 'stock', 
@@ -71,7 +74,7 @@ function Name({name, color}) {
     return (
         
         <Stack direction='row' alignItems='center' spacing={2}>
-            <Box sx={{height: '34px', width: '34px', background: color, borderRadius: 1}} />
+            <ProductImage color={color} size={34} />
             <span>{name}</span>
         </Stack>
     )
@@ -85,26 +88,32 @@ const rows = tempData.ecommerce.products.map((product, index) => ({
     price: product.price,
     sold: product.sold,
     sku: product.sku,
+    singleTitle: product.name,
     }));
 
-export default function ListProducts() {
+export default function Products() {
 
     const [selectedRow, setSelectedRow] = useState(null);
     if (!selectedRow) setSelectedRow(rows[0]);
 
     const layoutProps = { rows, columns, selectedRow, setSelectedRow, Single: SingleProduct };
 
+    const theme = useTheme();
+
     return (
         <Layout>
-            
-            <Toolbar><Typography variant="h4">Products</Typography></Toolbar>
+            <Divider />
+            <Toolbar sx={{ background: theme.palette.primary.main, width: '100%'}}>
+                <Typography variant="h4">Products</Typography>
+            </Toolbar>
 
             <Divider />
 
-            <PageGridLayout {...layoutProps}  /> 
-            
+            <GridPage rows={rows} columns={columns} Single={SingleProduct} />
         </Layout>
     )
 }
-ListProducts.auth = true;
+Products.auth = true;
+
+
 

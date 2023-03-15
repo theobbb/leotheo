@@ -18,107 +18,20 @@ import MailIcon from '@mui/icons-material/Mail';
 
 
 import { Stack } from '@mui/system';
+import { links } from '@utils/links';
+import { Button } from '@mui/material';
+import Link from 'next/link';
 
-const links = [
-  {
-    name: "Dashboard",
-    path: '/dashboard',
-    children: [],
-  },
-  {
-    name: "Content",
-    path: '/content',
-    children: [
-      {
-        name: "Posts",
-        path: '/content/posts',
-        children: [],
-      },
-      {
-        name: "News",
-        path: '/content/news',
-        children: [],
-      },
-      {
-        name: "Singles",
-        path: '/content/singles',
-        children: [],
-      },
-    ],
-  },
-  {
-    name: "Ecommerce",
-    path: '/ecommerce',
-    children: [
-      {
-        name: "Products",
-        path: '/ecommerce/products/list',
-        children: [
-          {
-            name: "List",
-            path: '/ecommerce/products/list',
-            children: [],
-          },
-          {
-            name: "Create",
-            path: '/ecommerce/products/create',
-            children: [],
-          },
-        ],
-      },
-      {
-        name: "Orders",
-        path: '/ecommerce/orders',
-        children: [],
-      },
-      {
-        name: "Customers",
-        path: '/ecommerce/customers',
-        children: [],
-      },
-    ],
-  },
-  {
-    name: "Analytics",
-    path: '/analytics',
-    children: [
-      {
-        name: "Posts",
-        path: '/content/posts',
-        children: [],
-      },
-      {
-        name: "News",
-        path: '/content/news',
-        children: [],
-      },
-      {
-        name: "Singles",
-        path: '/content/singles',
-        children: [],
-      },
-    ],
-  },
-  /*
-  ['Dashboard'], 
-  ['Content', 'Posts', 'News', 'Singles'], 
-  ['Ecommerce', 'Products', 'Orders', 'Customers'],
-  ['Analytics', 'Products', 'Orders', 'Customers'],*/
-];
-
-  
 function MenuItem({link, index}) {
 
   return link && (
       <>
       <ListItem disablePadding>
-      <ListItemButton href={link.path.toLowerCase()} sx={{ height: 28, marginLeft: index*3, marginTop: 0}}>
-          <ListItemText primary={
-          <Typography>
-              {link.name}
-          </Typography>
-          }/>
-      </ListItemButton>
+        <Link href={link.path.toLowerCase()} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItemButton sx={{ height: 28, marginLeft: index*3, marginTop: 0}}>
+            <Typography>{link.name}</Typography>
+        </ListItemButton>
+        </Link>
       </ListItem> 
       
       {link.children.length > 0 && link.children.map((_link) => (

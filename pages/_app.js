@@ -11,8 +11,12 @@ import { DataContext } from "@utils/dataContext";
 
 const { createTheme, ThemeProvider } = require('@mui/material/styles');
 
+import Head from 'next/head';
+import { Html, Main } from "next/document";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
+
+//export default function App({ Component, pageProps: { session, ...pageProps } }) {
+  export default function App({ Component, pageProps: { session, ...pageProps } }) {
 
   const [data, setData] = useState(null);
 
@@ -21,8 +25,35 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   }, []);
   
 
+  return data && (
+    
+    
+
+    
+
+    <ThemeProvider theme={theme}>
+      <DataContext.Provider value={data}>
+    
+        <Component {...pageProps} />
+      </DataContext.Provider>
+      
+    </ThemeProvider>
+    
+  )
+
   return (
     <SessionProvider session={session}>
+    
+      <Head>
+      <title>Create Next Appf</title>
+      <link rel="icon" href="/favicon.ico" />
+
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+      </Head>
+
       <ThemeProvider theme={theme}>
         <DataContext.Provider value={data}>
       

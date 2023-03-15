@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Avatar, ButtonBase } from "@mui/material";
+import { Avatar, ButtonBase, IconButton } from "@mui/material";
 import { useSession } from "next-auth/react";
 import UserOptions from './userOptions';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function UserAvatar({openProfile, handleDrawerProfileToggle}) {
 
-  const { data: session } = useSession();
+  //const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -18,15 +19,17 @@ export default function UserAvatar({openProfile, handleDrawerProfileToggle}) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const avatar = (
-    <ButtonBase aria-describedby={id} onClick={handleClick} >
-      <Avatar name={stringAvatar("thep")} />
-    </ButtonBase>
+  const Avatar = () => (
+    <IconButton variant='invert' aria-describedby={id} onClick={handleClick} >
+      
+      <PersonIcon />
+    </IconButton>
   )
   
   return (
     <>
-      {session && avatar}
+      {/*session && avatar*/}
+      <Avatar />
       <UserOptions handleDrawerProfileToggle={handleDrawerProfileToggle} id={id} open={open} anchorEl={anchorEl} onClose={handleClose} />
     </>
   )

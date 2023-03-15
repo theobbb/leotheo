@@ -1,0 +1,8 @@
+.apexcharts-canvas {
+    transition: .3s ease;
+
+}
+
+.apexcharts-canvas * {
+    pointer-events: none;
+}

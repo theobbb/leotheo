@@ -23,7 +23,7 @@ export const statusText = [
 export default function StatusPastille({value}) {
     return (
         <Box sx={{px: 0.5, display: 'flex', borderRadius: 12, color: statusTextcolor[value], width: 'max-content', background: statusBackgroundColor[value]}}>
-            <Typography>{statusText[value]}</Typography>
+            <Typography variant='p'>{statusText[value]}</Typography>
         </Box>      
     )
 } 
