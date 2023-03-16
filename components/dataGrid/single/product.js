@@ -5,8 +5,10 @@ import { Box, Button, Card, Divider, Grid, Stack, styled, Toolbar, Typography, u
 import { DataContext } from '@utils/dataContext';
 import { seriesChart0 } from '@utils/tempData';
 
+import { Title, Value, GridTitle, RowDivider, SingleCard, CardDivider, SemiCardDivider } from './components';
 
 import React, { useContext } from 'react'
+import SingleLayout from './layout';
 
 export default function SingleProduct(props) {
 
@@ -36,49 +38,12 @@ export default function SingleProduct(props) {
   const rowSpacing = matchDownXL? 0.5:0.6;
   const dividerSpacing = matchDownXL? 0.5:0.6;
 
-  function Title(props) {
-    return (
-      <Grid item xs={12} sm={12} md={12} xl={5}>
-        <Typography variant='bold'>{props.children}</Typography>
-      </Grid>
-    )
-  }
-  function Value({children, ...other}) {
-    return (
-      <Grid item xs={12} sm={12} md={12} xl={7} {...other}>
-        <Typography variant='p'>{children}</Typography>
-      </Grid>
-    )
-  }
-  function GridTitle(props) {
-    return <Typography sx={{marginBottom: 1}} variant='h6'>{props.children}</Typography>
-  }
-
-  function RowDivider () {
-    return <Grid item xs={12} sx={{my: dividerSpacing}}><Divider /></Grid>
-  }
-
-  const SingleCard = ({children}) => (
-    <Card variant='main' sx={{py: dividerSpacing, px: 2, }}>
-      <Grid container rowSpacing={rowSpacing} columnSpacing={1} sx={{position: 'relative', marginTop: 0}}>
-          {children}
-          <Grid item xs={12}></Grid>
-      </Grid>
-    </Card>
-  )
-
-  function CardDivider () {
-    return <Box sx={{marginBottom: 6}} />
-  }
-  function SemiCardDivider () {
-    return <Box sx={{marginBottom: 3}} />
-  }
   
   return data && product && (
 
     
 
-    <Box sx={{px:3, py: 3}} >
+    <SingleLayout>
 
       <GridTitle>Details</GridTitle>
       <SingleCard>
@@ -166,7 +131,7 @@ export default function SingleProduct(props) {
         ))}
         
       
-    </Box>
+    </SingleLayout>
 
   )
 }

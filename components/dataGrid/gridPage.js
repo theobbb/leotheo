@@ -112,7 +112,7 @@ export default function GridPage(props) {
         onSortModelChange={handleSortModelChange}
         //onResize={() => console.log('test')}
         rowsPerPageOptions={[5]}
-        checkboxSelection
+        checkboxSelection={!matchDownXL}
         disableRowSelectionOnClick
         density={density}
         slots={{row: ButtonRow}}
@@ -125,6 +125,8 @@ export default function GridPage(props) {
 const buttonStyle = (theme) => ({
   root: theme.mixins.button,
 });
+
+
 /*
 const ButtonRow = styled(buttonStyle)(({ classes, selectedRow, handleClick, ...other }) => (
   <div className={classes.root} onClick={() => handleClick(other.row)} role="button">

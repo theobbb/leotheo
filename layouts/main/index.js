@@ -49,7 +49,7 @@ export default function Layout ({ children }) {
 
               <ProfileDrawer handleDrawerToggle={handleDrawerProfileToggle} open={openProfile} />
 
-              <Box sx={{ maxWidth: "100%", mx: "auto" }}>
+              <Box sx={{ maxWidth: "100vw", mx: "auto" }}>
                 {children}
               </Box>
               

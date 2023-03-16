@@ -4,6 +4,12 @@ import { Box, Button, Card, Divider, Grid, Stack, styled, Toolbar, Typography, u
 import { DataContext } from '@utils/dataContext';
 
 import React, { useContext } from 'react'
+import SingleComponents from './components';
+import SingleLayout from './layout';
+
+//import * as C from './components';
+
+import { Title, Value, GridTitle, RowDivider, SingleCard } from './components';
 
 export default function SingleOrder(props) {
 
@@ -25,73 +31,36 @@ export default function SingleOrder(props) {
   const rowSpacing = matchDownXL? 0.5:0.6;
   const dividerSpacing = matchDownXL? 0.5:0.6;
 
-  function Title(props) {
-    return (
-      <Grid item xs={12} sm={12} md={12} xl={5}>
-        <Typography variant='bold'>{props.children}</Typography>
-      </Grid>
-    )
-  }
-  function Value(props) {
-    return (
-      <Grid item xs={12} sm={12} md={12} xl={7} >
-        <Typography variant='p'>{props.children}</Typography>
-      </Grid>
-    )
-  }
-  function GridTitle(props) {
-    return <Typography sx={{marginBottom: 1}} variant='h6'>{props.children}</Typography>
-  }
-
-  function RowDivider () {
-    return <Grid item xs={12} sx={{my: dividerSpacing}}><Divider /></Grid>
-  }
-
-  const SingleCard = ({children}) => (
-    <Card variant='main' sx={{py: dividerSpacing, px: 2, marginBottom: 5}}>
-      <Grid container rowSpacing={rowSpacing} columnSpacing={1} sx={{position: 'relative', marginTop: 0}}>
-          {children}
-          <Grid item xs={12}></Grid>
-      </Grid>
-    </Card>
-  )
-
-
 
   return data && customer && order && (
 
     
 
-    <Box sx={{px:3, py: 3}} >
+    <SingleLayout>
 
       <GridTitle>Details</GridTitle>
       <SingleCard>
-          
 
-              <Title>Date</Title>
-              <Value >{`${selectedRow.date}`}</Value>
+          <Title>Date</Title>
+          <Value>{`${selectedRow.date}`}</Value>
 
-              <RowDivider />
+          <RowDivider />
 
-              <Title>Promotion Code</Title>
-              <Value>HIGH</Value>
+          <Title>Promotion Code</Title>
+          <Value>HIGH</Value>
 
-              <RowDivider />
+          <RowDivider />
 
-              <Title>Total Amount</Title>
-              <Value>{selectedRow.total}</Value>
+          <Title>Total Amount</Title>
+          <Value>{selectedRow.total}</Value>
 
-              <RowDivider />
+          <RowDivider />
 
-              <Title>Status</Title>
-              <Value>
-                <StatusPastille value={order.status} />
-              </Value>
-              
-              
-              
-            
-          
+          <Title>Status</Title>
+          <Value>
+            <StatusPastille value={order.status} />
+          </Value>
+
         </SingleCard>
 
         <GridTitle>Customer</GridTitle>
@@ -166,7 +135,7 @@ export default function SingleOrder(props) {
         ))}
         </Card>
       
-    </Box>
+    </SingleLayout>
 
   )
 }

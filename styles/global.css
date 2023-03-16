@@ -6,3 +6,7 @@
 .apexcharts-canvas * {
     pointer-events: none;
 }
+
+html, body {
+    overflow-x: hidden;
+}

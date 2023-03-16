@@ -44,8 +44,8 @@ export default function Orders() {
     const data = useContext(DataContext);
 
     const columns = [
-        { field: 'date', headerName: 'date', flex: 1, minWidth: 100, renderCell: (params) => params.row.dateRenderer, },
-        { field: 'total', headerName: 'Total', flex: 1, minWidth: 100 },
+        { field: 'date', headerName: 'date', flex: 1, minWidth: 80, renderCell: (params) => params.row.dateRenderer, },
+        { field: 'total', headerName: 'Total', flex: 1, minWidth: 80 },
         { field: 'items', headerName: 'Items', flex: 3.3, minWidth: 160, renderCell: (params) => params.row.itemsRenderer, },
         { field: 'customer', headerName: 'Customer', flex: 2, minWidth: 120, hide: 'lg' },
         { 

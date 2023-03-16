@@ -12,6 +12,7 @@ export default function GridPageLayout(props) {
     const { rows, columns, density, setDensity, Single, children, selectedRow, setSelectedRow, } = props;
 
     const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme => theme.breakpoints.down('sm'));
     const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
@@ -32,10 +33,12 @@ export default function GridPageLayout(props) {
     return (
         <Box sx={{height: '100%', maxHeight: '100vh', position: 'relative', width: `calc(100% - ${drawerWidth}px)`}}>
             
-            <Box sx={{px: 3, marginRight: matchDownMD? `${-drawerWidth}px` : 0 }}>
+            <Box sx={{marginRight: matchDownMD? `${-drawerWidth}px` : 0 }}>
                 <GridToolbar {...toolbarProps} />
-                <Box sx={{minWidth: '700px', paddingRight: matchDownMD? 3:0}}>
-                {children}
+                <Box sx={{maxWidth: '100%', position: 'relative', overflowX: 'scroll', }}>
+                    <Box sx={{minWidth: '550px', px: matchDownSM? 2 : 3, paddingBottom: 6 }}>
+                        {children}
+                    </Box>
                 </Box>
             </Box>
             
