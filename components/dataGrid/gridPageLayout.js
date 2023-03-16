@@ -56,13 +56,13 @@ export default function GridPageLayout(props) {
             open={selectedRow != null}
             onClose={handleClose}
             >
-            {/*selectedRow && 
+            {selectedRow && 
                 <Box>
                     
                     <SingleHeader {...{rows, selectedRow, setSelectedRow }} />
                     <SingleO />
                 </Box>
-            */}
+            }
             </Drawer>
         </Box>
 
